@@ -1,5 +1,5 @@
 variable "namespace" {
-  type        = string
+  type        = any
   default     = ""
   description = "Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
 }

@@ -1,5 +1,5 @@
 locals {
-
+  count = length(var.namespace)
   defaults = {
     label_order = ["namespace", "environment", "stage", "name", "attributes"]
     delimiter   = "-"
@@ -15,7 +15,7 @@ locals {
   regex_replace_chars = coalesce(var.regex_replace_chars, var.context.regex_replace_chars)
 
   name               = lower(replace(coalesce(var.name, var.context.name, local.defaults.sentinel), local.regex_replace_chars, local.defaults.replacement))
-  namespace          = lower(replace(coalesce(var.namespace, var.context.namespace, local.defaults.sentinel), local.regex_replace_chars, local.defaults.replacement))
+  namespace          = lower(replace(coalesce(var.namespace[count.index], var.context.namespace[count.index], local.defaults.sentinel), local.regex_replace_chars, local.defaults.replacement))
   environment        = lower(replace(coalesce(var.environment, var.context.environment, local.defaults.sentinel), local.regex_replace_chars, local.defaults.replacement))
   stage              = lower(replace(coalesce(var.stage, var.context.stage, local.defaults.sentinel), local.regex_replace_chars, local.defaults.replacement))
   delimiter          = coalesce(var.delimiter, var.context.delimiter, local.defaults.delimiter)
